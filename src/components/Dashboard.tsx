@@ -1,9 +1,34 @@
-// import React from 'react';
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // Para el botón de Regresar al login
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [cantidadBebidas, setCantidadBebidas] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Función para cargar la cantidad de "Bebidas"
+  const fetchCantidadBebidas = () => {
+    fetch("http://localhost:3000/shop/1")
+      .then((res) => res.json())
+      .then((data) => {
+        const bebidas = data.find((item: any) => item.tipo_nombre === "Limpieza");
+        setCantidadBebidas(bebidas ? bebidas.cantidad_total : null);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchCantidadBebidas();
+    // const interval = setInterval(fetchCantidadBebidas, 5000); // Actualiza cada 5 segundos
+    // return () => clearInterval(interval);
+  }, []);
+
+
     return (
     <div className="flex h-screen">
       {/* Menú lateral a la izquierda en Dashboard */}
@@ -41,7 +66,9 @@ export default function Dashboard() {
           {/* Ventas del mes */}
           <div className="bg-emerald-500 rounded-xl shadow p-4 flex flex-col items-start">
             <span className="text-white text-sm">Ventas del mes</span>
-            <span className="text-2xl font-bold">$350.4</span>
+            <span className="text-2xl font-bold">
+            {loading ? "Cargando..." : cantidadBebidas ?? "No disponible"}
+          </span>
           </div>
           {/* Spend this month */}
           <div className="bg-emerald-500 rounded-xl shadow p-4 flex flex-col items-start">
