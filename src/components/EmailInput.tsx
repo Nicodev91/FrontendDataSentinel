@@ -5,8 +5,8 @@ interface EmailInputProps {
   
   export default function EmailInput({ email, setEmail }: EmailInputProps) {
     return (
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+      <div className="w-full">
+        <label htmlFor="email" className="block text-sm sm:text-base font-medium text-gray-700 mb-2">
           Correo electrónico
         </label>
         <input
@@ -14,7 +14,7 @@ interface EmailInputProps {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-3 py-3 bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent text-gray-900"
+          className="w-full px-3 py-3 sm:py-4 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent text-gray-900 text-sm sm:text-base placeholder-gray-500"
           placeholder="correo@ejemplo.com"
           required
         />

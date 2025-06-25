@@ -26,15 +26,16 @@ a:hover {
 
 body {
   margin: 0;
-  display: block; /* cambiar flex a block para evitar interferencias */
+  display: block;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #242424; /* conservar fondo oscuro */
+  background-color: #242424;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  overflow-x: hidden; /* Prevenir scroll horizontal */
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: clamp(2rem, 5vw, 3.2rem);
   line-height: 1.1;
 }
 
@@ -55,6 +56,27 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
 }
 
 @media (prefers-color-scheme: light) {
